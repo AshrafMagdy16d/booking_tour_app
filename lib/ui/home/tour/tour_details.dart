@@ -11,6 +11,8 @@ class TourDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     Tour tour = ModalRoute.of(context)!.settings.arguments as Tour;
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -25,43 +27,48 @@ class TourDetailsPage extends StatelessWidget {
             Image.network(
               tour.imageUrl,
               width: double.infinity,
-              height: 250,
+              height: screenHeight * 0.3,
               fit: BoxFit.cover,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(tour.title, style: AppStyles.semi20Black),
-                  const SizedBox(height: 8),
-                  Text(
-                    "\$${tour.price.toInt()}",
-                    style: AppStyles.bold20Primary,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(tour.description, style: AppStyles.semi18gray),
-                  const SizedBox(height: 120),
-                  Center(
-                    child: CustomButton(
-                      onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          AppRoutes.bookingRouteName,
-                          arguments: Tour(
-                            id: tour.id,
-                            title: tour.title,
-                            imageUrl: tour.imageUrl,
-                            price: tour.price,
-                            description: tour.description,
-                          ),
-                        );
-                      },
-                      label: "Book Now",
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.02,
+                vertical: screenHeight * 0.01,
+              ),
+              child: Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(tour.title, style: AppStyles.semi20Black),
+                    SizedBox(height: screenHeight * 0.01),
+                    Text(
+                      "\$${tour.price.toInt()}",
+                      style: AppStyles.bold20Primary,
                     ),
-                  ),
-                ],
+                    SizedBox(height: screenHeight * 0.02),
+                    Text(tour.description, style: AppStyles.semi18gray),
+                    SizedBox(height: screenHeight * 0.2),
+                    Center(
+                      child: CustomButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.bookingRouteName,
+                            arguments: Tour(
+                              id: tour.id,
+                              title: tour.title,
+                              imageUrl: tour.imageUrl,
+                              price: tour.price,
+                              description: tour.description,
+                            ),
+                          );
+                        },
+                        label: "Book Now",
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

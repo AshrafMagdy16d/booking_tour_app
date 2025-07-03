@@ -1,4 +1,5 @@
 import 'package:booking_app/models/tour_model.dart';
+import 'package:booking_app/utils/app_colors.dart';
 import 'package:booking_app/utils/app_styles.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -19,10 +20,18 @@ class TourCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.all(12),
+        color: AppColors.whiteColor,
+        elevation: 4,
+        margin: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.03,
+          vertical: screenHeight * 0.02,
+        ),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -32,7 +41,7 @@ class TourCard extends StatelessWidget {
               ),
               child: CachedNetworkImage(
                 imageUrl: tour.imageUrl,
-                height: 200,
+                height: screenHeight * 0.25,
                 width: double.infinity,
                 fit: BoxFit.fill,
                 errorWidget:

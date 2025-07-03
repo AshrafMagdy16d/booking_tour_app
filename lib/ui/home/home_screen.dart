@@ -11,8 +11,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
@@ -32,12 +30,11 @@ class HomeScreen extends StatelessWidget {
         builder: (context, constraints) {
           if (constraints.maxWidth > 600) {
             return GridView.builder(
-              padding: EdgeInsets.all(screenWidth * 0.02),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-                childAspectRatio: 3 / 2,
+                crossAxisSpacing: 5,
+                childAspectRatio: 1,
               ),
               itemCount: mockTours.length,
               itemBuilder: (context, index) {

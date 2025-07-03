@@ -1,5 +1,6 @@
 import 'package:booking_app/providers/booking_providers.dart';
 import 'package:booking_app/utils/app_colors.dart';
+import 'package:booking_app/utils/app_routes.dart';
 import 'package:booking_app/utils/app_styles.dart';
 
 import 'package:booking_app/widets/tour_card_widget.dart';
@@ -16,6 +17,8 @@ class TourBooked extends StatelessWidget {
     final bookings = bookingProvider.bookings;
 
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+
       appBar: AppBar(
         title: Text('My Bookings', style: AppStyles.bold20White),
         backgroundColor: AppColors.primaryColorLight,
@@ -31,6 +34,14 @@ class TourBooked extends StatelessWidget {
                   final booking = bookings[index];
                   return TourCard(
                     tour: booking.tour,
+
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.tourDetailsRouteName,
+                        arguments: booking.tour,
+                      );
+                    },
                     extraInfo: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

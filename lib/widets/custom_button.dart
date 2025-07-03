@@ -15,12 +15,17 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primaryColorLight,
         padding:
             padding ??
-            const EdgeInsets.symmetric(horizontal: 120, vertical: 20),
+            EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.3,
+              vertical: screenHeight * 0.02,
+            ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       onPressed: onPressed,

@@ -37,6 +37,8 @@ class _BookingPageState extends State<BookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     Tour tour = ModalRoute.of(context)!.settings.arguments as Tour;
     return Scaffold(
       appBar: AppBar(
@@ -44,48 +46,55 @@ class _BookingPageState extends State<BookingPage> {
         title: Text(tour.title, style: AppStyles.bold20White),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        child: Column(
-          children: [
-            SizedBox(height: 20),
-            Text("Booking Details", style: AppStyles.bold16Black),
-            SizedBox(height: 20),
-            CustomTextForm(labelText: "User Name", controller: userName),
-            SizedBox(height: 20),
-            CustomTextForm(labelText: "Email", controller: email),
-            SizedBox(height: 20),
-            CustomTextForm(
-              labelText: "Numbers of travelers",
-              controller: numberOfTravelers,
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 80),
-            CustomButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Booking submitted successfully!'),
-                    backgroundColor: Colors.green,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-                final booking = Booking(
-                  userName: userName.text,
-                  email: email.text,
-                  numberOfTravelers: int.tryParse(numberOfTravelers.text) ?? 1,
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.04,
+          vertical: screenHeight * 0.02,
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              SizedBox(height: screenHeight * 0.03),
+              Text("Booking Details", style: AppStyles.semi20Primary),
+              SizedBox(height: screenHeight * 0.03),
+              CustomTextForm(labelText: "User Name", controller: userName),
+              SizedBox(height: screenHeight * 0.03),
+              CustomTextForm(labelText: "Email", controller: email),
+              SizedBox(height: screenHeight * 0.03),
+              CustomTextForm(
+                labelText: "Numbers of travelers",
+                controller: numberOfTravelers,
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 80),
+              CustomButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Booking submitted successfully!'),
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  final booking = Booking(
+                    userName: userName.text,
+                    email: email.text,
+                    numberOfTravelers:
+                        int.tryParse(numberOfTravelers.text) ?? 1,
 
-                  tour: tour,
-                );
+                    tour: tour,
+                  );
 
-                Provider.of<BookingProvider>(
-                  context,
-                  listen: false,
-                ).addBooking(booking);
-                Navigator.pop(context);
-              },
-              label: "submission",
-            ),
-          ],
+                  Provider.of<BookingProvider>(
+                    context,
+                    listen: false,
+                  ).addBooking(booking);
+                  Navigator.pop(context);
+                },
+                label: "submission",
+              ),
+            ],
+          ),
         ),
       ),
     );
